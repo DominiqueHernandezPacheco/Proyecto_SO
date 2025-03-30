@@ -89,6 +89,13 @@ function showNotification(mensaje, duracion = 3000) {
   
   // Función para instalar el driver simulando un proceso con modal
   function instalarDriver(dispositivo) {
+
+    if (drivers[dispositivo]) {
+      alert(`El driver para ${dispositivo} ya está instalado.`);
+      agregarRegistro(`El driver para ${dispositivo} ya está instalado.`);
+      return;
+    }
+
     const modal = document.getElementById('modal-driver-install');
     const progress = document.getElementById('install-progress');
     const driverMessage = document.getElementById('driver-message');
@@ -129,7 +136,7 @@ function showNotification(mensaje, duracion = 3000) {
     } else if (accion === puertoValido) {
       if (!drivers[dispositivo]) {
         alert(`Error: El driver para ${dispositivo} no está instalado.`);
-        agregarRegistro(`Intento de conexión fallido para ${dispositivo}: driver ausente.`);
+        agregarRegistro(`Intento de conexión fallido para ${dispositivo}: driver no instalado.`);
         selectElement.selectedIndex = 0;
         return;
       }
@@ -192,6 +199,36 @@ function showNotification(mensaje, duracion = 3000) {
 
   // Agrega la operación seleccionada a la cola
   function agregarOperacion(tipoOperacion) {
+    // Verificar si el driver está instalado
+    if (!drivers[dispositivoActual]) {
+      alert(`Error: El driver para ${dispositivoActual} no está instalado. Por favor, instálalo antes de realizar operaciones.`);
+      agregarRegistro(`Intento de operación fallido para ${dispositivoActual}: driver no instalado.`);
+      return; // Salir de la función si el driver no está instalado
+    }
+
+    // Verificar si el dispositivo está conectado al puerto correspondiente
+    const puertoValido = dispositivosAPuertos[dispositivoActual];
+    if (estadoPuertos[puertoValido] !== dispositivoActual) {
+        alert(`Error: El ${dispositivoActual} no está conectado al puerto ${puertoValido.toUpperCase()}.`);
+        agregarRegistro(`Intento de operación fallido para ${dispositivoActual}: no está conectado al puerto ${puertoValido.toUpperCase()}.`);
+        return; // Salir de la función si el dispositivo no está conectado
+    }
+
+    // Verificar si el dispositivo es de entrada (teclado) y la operación es "read"
+    if (dispositivoActual === 'teclado' && tipoOperacion === 'read') {
+      alert(`Error: El teclado es un dispositivo de entrada y no puede realizar operaciones de lectura.`);
+      agregarRegistro(`Intento de escritura fallido en ${dispositivoActual}: dispositivo de entrada.`);
+      return; // Salir de la función si la operación no es válida
+  }
+
+  // Verificar si el dispositivo es de salida (audifonos y proyector) y la operación es "write"
+  if ((dispositivoActual === 'audifonos' || dispositivoActual === 'proyector') && tipoOperacion === 'write') {
+    alert(`Error: El ${dispositivoActual} es un dispositivo de salida y no puede realizar operaciones de lectura.`);
+    agregarRegistro(`Intento de escritura fallido en ${dispositivoActual}: dispositivo de salida.`);
+    return; // Salir de la función si la operación no es válida
+}
+
+
     let dato = null;
     if (tipoOperacion === 'write') {
       dato = prompt('Ingrese el dato a escribir:');
@@ -199,6 +236,8 @@ function showNotification(mensaje, duracion = 3000) {
         return; // Operación cancelada
       }
     }
+
+
     ioQueue.enqueue({ device: dispositivoActual, operation: tipoOperacion, data: dato });
     cerrarModalOperaciones();
   }
@@ -395,4 +434,3 @@ setInterval(() => {
       processNext();
     }
   }, 11000);
-
