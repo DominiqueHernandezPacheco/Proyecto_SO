@@ -52,6 +52,8 @@ function showNotification(mensaje, duracion = 3000) {
         const errorMsg = `Error: Cola de operaciones llena. No se pudo agregar ${operation.operation} en ${operation.device}.`;
         agregarRegistro(errorMsg);
         showNotification('¡La cola está llena! No se pueden agregar más operaciones.');
+        totalErrores++;
+        actualizarRecursos()
         return;
       }
       this.queue.push(operation);
@@ -71,6 +73,8 @@ function showNotification(mensaje, duracion = 3000) {
         // Simulación de error aleatorio
         if (Math.random() < errorProbabilidad) {
           agregarRegistro(`Error durante ${op.operation} en ${op.device}: Fallo inesperado.`);
+          totalErrores++;
+          actualizarRecursos();
         } else {
           if (op.operation === 'read') {
             agregarRegistro(`Lectura exitosa en ${op.device}: "Datos simulados".`);
@@ -91,8 +95,10 @@ function showNotification(mensaje, duracion = 3000) {
   function instalarDriver(dispositivo) {
 
     if (drivers[dispositivo]) {
-      alert(`El driver para ${dispositivo} ya está instalado.`);
+      alert(`Error: el driver para ${dispositivo} ya está instalado.`);
       agregarRegistro(`El driver para ${dispositivo} ya está instalado.`);
+      totalErrores++;
+      actualizarRecursos();
       return;
     }
 
@@ -125,6 +131,15 @@ function showNotification(mensaje, duracion = 3000) {
   
     if (accion === "desconectar") {
       if (estadoPuertos[puertoValido] === dispositivo) {
+        // Verificar si hay operaciones pendientes para el dispositivo
+        const operacionesPendientes = ioQueue.queue.some(op => op.device === dispositivo);
+        if (operacionesPendientes) {
+            alert(`Advertencia: Hay operaciones pendientes para ${dispositivo}. Desconectar puede causar errores.`);
+            selectElement.selectedIndex = 0;
+            agregarRegistro(`Advertencia: Intento de desconectar ${dispositivo} con operaciones pendientes.`);
+            return
+        }
+        // Desconectar el dispositivo
         estadoPuertos[puertoValido] = null;
         botonPuerto.textContent = 'Desconectado';
         botonPuerto.classList.replace('estado-conectado', 'estado-desconectado');
@@ -137,6 +152,8 @@ function showNotification(mensaje, duracion = 3000) {
       if (!drivers[dispositivo]) {
         alert(`Error: El driver para ${dispositivo} no está instalado.`);
         agregarRegistro(`Intento de conexión fallido para ${dispositivo}: driver no instalado.`);
+        totalErrores++;
+        actualizarRecursos()
         selectElement.selectedIndex = 0;
         return;
       }
@@ -203,6 +220,8 @@ function showNotification(mensaje, duracion = 3000) {
     if (!drivers[dispositivoActual]) {
       alert(`Error: El driver para ${dispositivoActual} no está instalado. Por favor, instálalo antes de realizar operaciones.`);
       agregarRegistro(`Intento de operación fallido para ${dispositivoActual}: driver no instalado.`);
+      totalErrores++;
+      actualizarRecursos();
       return; // Salir de la función si el driver no está instalado
     }
 
@@ -211,6 +230,8 @@ function showNotification(mensaje, duracion = 3000) {
     if (estadoPuertos[puertoValido] !== dispositivoActual) {
         alert(`Error: El ${dispositivoActual} no está conectado al puerto ${puertoValido.toUpperCase()}.`);
         agregarRegistro(`Intento de operación fallido para ${dispositivoActual}: no está conectado al puerto ${puertoValido.toUpperCase()}.`);
+        totalErrores++;
+        actualizarRecursos();
         return; // Salir de la función si el dispositivo no está conectado
     }
 
@@ -218,6 +239,8 @@ function showNotification(mensaje, duracion = 3000) {
     if (dispositivoActual === 'teclado' && tipoOperacion === 'read') {
       alert(`Error: El teclado es un dispositivo de entrada y no puede realizar operaciones de lectura.`);
       agregarRegistro(`Intento de lectura fallido en ${dispositivoActual}: dispositivo de entrada.`);
+      totalErrores++;
+      actualizarRecursos();
       return; // Salir de la función si la operación no es válida
   }
 
@@ -225,6 +248,8 @@ function showNotification(mensaje, duracion = 3000) {
   if ((dispositivoActual === 'audifonos' || dispositivoActual === 'proyector') && tipoOperacion === 'write') {
     alert(`Error: El ${dispositivoActual} es un dispositivo de salida y no puede realizar operaciones de escritura.`);
     agregarRegistro(`Intento de escritura fallido en ${dispositivoActual}: dispositivo de salida.`);
+    totalErrores++;
+    actualizarRecursos();
     return; // Salir de la función si la operación no es válida
 }
 
@@ -392,14 +417,8 @@ function processNext() {
   const op = ioQueue.queue.shift();
   agregarRegistro(`Procesando operación ${op.operation} para ${op.device}...`);
   
-
-
-
   // Tiempo de inicio para medir la duración de la operación
   const inicio = Date.now();
-  
-
-
   // Simulación de latencia variable según dispositivo
   setTimeout(() => {
     let operacionExitosa = true;
