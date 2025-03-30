@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas Operativos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>"
+
+<head>
+    <body class="dispost">
+        <section id="dispo">
+            <h2>Dispositivos</h2>
+            <div class="contenedor-principal">
+                
+                <div class="DispositivosES">
+                    <div id="teclado" onclick="mostrarInfo('Teclado')">
+                        <img src="teclado.png" alt="Teclado" style="width: 100px">
+                        <select id="select-teclado" onchange="manejarConexion('teclado', this.value)">
+                            <option value="">Seleccionar acción</option>
+                            <option value="usb">Conectar a USB</option>
+                            <option value="desconectar">Desconectar</option>
+                        </select>
+                    </div>
+                    <div id="proyector" onclick="mostrarInfo('Proyector')">
+                        <img src="Proyector.png" alt="Proyector" style="width: 100px">
+                        <select id="select-proyector" onchange="manejarConexion('proyector', this.value)">
+                            <option value="">Seleccionar acción</option>
+                            <option value="hdmi">Conectar a HDMI</option>
+                            <option value="desconectar">Desconectar</option>
+                        </select>
+                    </div>
+                    <div id="audifonos" onclick="mostrarInfo('Audifonos')">
+                        <img src="Audifonos.png" alt="Audifonos" style="width: 100px">
+                        <select id="select-audifonos" onchange="manejarConexion('audifonos', this.value)">
+                            <option value="">Seleccionar acción</option>
+                            <option value="audio">Conectar a Audio</option>
+                            <option value="desconectar">Desconectar</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="computadora" id="computadora" onclick="mostrarInfo('Computadora')">
+                        <div class="puertos">
+                            <div>
+                                <img src="puerto-hdmi.png" alt="Puertos" style="width: 50px">
+                                <button id="estado-hdmi" class="estado-desconectado">Desconectado</button>
+                            </div>
+                            <div>
+                                <img src="puerto-usb.png" alt="Puertos" style="width: 50px">
+                                <button id="estado-usb" class="estado-desconectado">Desconectado</button>
+                            </div>
+                            <div>
+                                <img src="puerto-de-audio.png" alt="Puertos" style="width: 40px">
+                                <button id="estado-audio" class="estado-desconectado">Desconectado</button>
+                            </div>
+                        </div>
+                    <img src="Computadora.png" alt="Computadora" style="width: 300px">    
+                </div>
+            
+            </div>
+        </section>
+
+        <section class="info">
+            <div id="info-procesos">
+                <h3 id="titulo-info">Registro de Procesos</h3>
+                <ul id="registro-procesos"> <!--Aquí se mostrarán todos los procesos que se haga en el sistema--></ul>
+            </div>
+            <div id="info-recursos">
+                <h3 id="titulo-info">Registro de Recursos de Sistema</h3>
+            </div>
+        
+        </section>
+
+    </body>
+
+</html>

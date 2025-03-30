@@ -1,0 +1,95 @@
+/* Contenedor que agrupa dispositivos y computadora */
+.contenedor-principal {
+    display: flex; /* Alinea los dispositivos y la computadora en una fila */
+    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+    gap: 800px; /* Espacio entre los dispositivos y la computadora */
+}
+
+/* Contenedor de dispositivos */
+.DispositivosES {
+    display: flex; /* Alinea los dispositivos */
+    flex-direction: column;
+    justify-content: center; 
+    border: 2.5px solid #1b1b21; 
+    border-radius: 10px;
+    padding: 10px; /* Espacio interno dentro del borde */
+    background-color: #ffffff;
+    gap: 10px; /* Espacio entre los dispositivos */
+}
+
+#dispo{
+    border: 3px, solid #1b1b21; /* Borde de los dispositivos */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+
+.computadora img {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 300px; 
+    height: auto; 
+}
+
+.info{
+    display: flex; 
+    flex-direction:row; /* Alinea los elementos en columna */
+    padding: 10px;
+    gap: 800px; /* Espacio entre los elementos */
+    border: 3px solid #1b1b21; /* Borde de los elementos */
+}
+
+#info-procesos{
+    border: 2.5px solid #1b1b21;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#info-recursos{
+    border: 2.5px solid #1b1b21;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.puertos{
+    display: flex; /* Alinea los elementos en fila */
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2px;
+    gap: 10px; /* Espacio entre los elementos */
+    
+}
+
+button{
+    margin-top: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.estado-desconectado {
+    background-color: #ffcccc; /* Color de fondo para estado desconectado */
+    color: #ff0000; /* Color de texto para estado desconectado */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.estado-conectado{
+    background-color: #ccffcc; /* Color de fondo para estado conectado */
+    color: #008000; /* Color de texto para estado conectado */
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+select {
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
