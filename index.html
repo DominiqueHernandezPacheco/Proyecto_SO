@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistemas Operativos - Simulador</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="dispost">
+  <section id="dispo">
+    <h2>Dispositivos</h2>
+    <div class="contenedor-principal">
+      <div class="DispositivosES">
+        <!-- Teclado -->
+        <div id="teclado" onclick="mostrarInfo('teclado')">
+        <img src="teclado.png" alt="Teclado" style="width: 100px">
+        <select id="select-teclado" onchange="manejarConexion('teclado', this.value)">
+          <option value="">Seleccionar acción</option>
+          <option value="usb">Conectar a USB</option>
+          <option value="desconectar">Desconectar</option>
+        </select>
+        <button onclick="event.stopPropagation(); instalarDriver('teclado');">Instalar driver</button>
+        <button onclick="event.stopPropagation(); mostrarMenuOperaciones('teclado');">Operaciones</button>
+      </div>
+
+        <!-- Proyector -->
+        <div id="proyector" onclick="mostrarInfo('Proyector')">
+          <img src="Proyector.png" alt="Proyector" style="width: 100px">
+          <select id="select-proyector" onchange="manejarConexion('proyector', this.value)">
+            <option value="">Seleccionar acción</option>
+            <option value="hdmi">Conectar a HDMI</option>
+            <option value="desconectar">Desconectar</option>
+          </select>
+          <button onclick="event.stopPropagation(); instalarDriver('proyector');">Instalar driver</button>
+          <button onclick="event.stopPropagation(); mostrarMenuOperaciones('proyector');">Operaciones</button>
+        </div>
+
+        <!-- Audífonos -->
+        <div id="audifonos" onclick="mostrarInfo('Audifonos')">
+          <img src="Audifonos.png" alt="Audifonos" style="width: 100px">
+          <select id="select-audifonos" onchange="manejarConexion('audifonos', this.value)">
+            <option value="">Seleccionar acción</option>
+            <option value="audio">Conectar a Audio</option>
+            <option value="desconectar">Desconectar</option>
+          </select>
+          <button onclick="event.stopPropagation(); instalarDriver('audifonos');">Instalar driver</button>
+          <button onclick="event.stopPropagation(); mostrarMenuOperaciones('audifonos');">Operaciones</button>
+        </div>
+      </div>
+
+      <!-- Computadora mini con botón "Inspeccionar" -->
+      <div class="computadora" id="computadora" onclick="mostrarInfo('Computadora')">
+        <div class="puertos">
+          <div>
+            <img src="puerto-hdmi.png" alt="Puerto HDMI" style="width: 50px">
+            <button id="estado-hdmi" class="estado-desconectado">Desconectado</button>
+          </div>
+          <div>
+            <img src="puerto-usb.png" alt="Puerto USB" style="width: 50px">
+            <button id="estado-usb" class="estado-desconectado">Desconectado</button>
+          </div>
+          <div>
+            <img src="puerto-de-audio.png" alt="Puerto Audio" style="width: 40px">
+            <button id="estado-audio" class="estado-desconectado">Desconectado</button>
+          </div>
+        </div>
+        <img src="Computadora.png" alt="Computadora" style="width: 300px">
+        <button id="btn-inspeccionar" onclick="mostrarInspeccion();">Inspeccionar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal para simular instalación de driver -->
+  <div id="modal-driver-install" class="modal">
+    <div class="modal-content">
+      <h2>Instalando Driver</h2>
+      <p id="driver-message">Instalando...</p>
+      <progress id="install-progress" value="0" max="100"></progress>
+    </div>
+  </div>
+
+  <!-- Modal para menú de operaciones (seleccionar operación de E/S) -->
+  <div id="modal-operaciones" class="modal">
+    <div class="modal-content">
+      <h2>Operaciones de E/S</h2>
+      <p id="operaciones-dispositivo"></p>
+      <button onclick="agregarOperacion('read');">Leer</button>
+      <button onclick="agregarOperacion('write');">Escribir</button>
+      <button onclick="cerrarModalOperaciones();">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal para inspeccionar la cola de operaciones -->
+  <div id="modal-inspeccion" class="modal">
+    <div class="modal-content">
+      <h2>Inspección de Operaciones</h2>
+      <div id="info-inspeccion">
+        <!-- Aquí se actualizará el estado de la cola y operaciones -->
+      </div>
+      <button onclick="cerrarModalInspeccion();">Cerrar</button>
+    </div>
+  </div>
+
+  <section class="info">
+    <div id="info-procesos">
+      <h3 id="titulo-info">Registro de Procesos</h3>
+      <ul id="registro-procesos"></ul>
+    </div>
+    <div id="info-recursos">
+      <h3 id="titulo-info">Registro de Recursos de Sistema</h3>
+  <div id="metricas-recursos">
+    <!-- Aquí se mostrarán las métricas de rendimiento -->
+  </div>
+    </div>
+  </section>
+
+  <div id="modal-inspeccion" class="modal">
+    <div class="modal-content">
+      <h2>Inspección de Operaciones</h2>
+      <div id="info-inspeccion">
+        <!-- Listado textual de la cola -->
+      </div>
+      <!-- Representación gráfica global de la cola -->
+      <div id="grafica-cola">
+        <!-- Se llenará dinámicamente con los elementos de la cola -->
+      </div>
+      <!-- Nueva sección: operaciones por dispositivo -->
+      <div id="operaciones-por-dispositivo">
+        <h3>Operaciones por Dispositivo</h3>
+        <div id="operaciones-teclado" class="operaciones-device">
+          <h4>Teclado</h4>
+          <div class="device-queue"></div>
+        </div>
+        <div id="operaciones-proyector" class="operaciones-device">
+          <h4>Proyector</h4>
+          <div class="device-queue"></div>
+        </div>
+        <div id="operaciones-audifonos" class="operaciones-device">
+          <h4>Audífonos</h4>
+          <div class="device-queue"></div>
+        </div>
+      </div>
+      <button onclick="cerrarModalInspeccion();">Cerrar</button>
+    </div>
+  </div>
+  <div id="notification" class="notification"></div>
+  
+</body>
+</html>
