@@ -6,15 +6,19 @@
   <title>Sistemas Operativos - Simulador</title>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
+  <head>
+    <link rel="icon" href="icon.png" type="image/png">
+  </head>
 </head>
 <body class="dispost">
   <section id="dispo">
-    <h2>Dispositivos</h2>
+   
     <div class="contenedor-principal">
       <div class="DispositivosES">
+         <h2>Dispositivos</h2>
         <!-- Teclado -->
         <div id="teclado" onclick="mostrarInfo('teclado')">
-        <img src="teclado.png" alt="Teclado" style="width: 100px">
+          <img src="teclado.png" alt="Teclado" style="width: 100px" title="Este es un dispositivo de entrada.">
         <select id="select-teclado" onchange="manejarConexion('teclado', this.value)">
           <option value="">Seleccionar acción</option>
           <option value="usb">Conectar a USB</option>
@@ -26,7 +30,7 @@
 
         <!-- Proyector -->
         <div id="proyector" onclick="mostrarInfo('Proyector')">
-          <img src="Proyector.png" alt="Proyector" style="width: 100px">
+          <img src="Proyector.png" alt="Proyector" style="width: 100px" title="Este es un dispositivo de salida.">
           <select id="select-proyector" onchange="manejarConexion('proyector', this.value)">
             <option value="">Seleccionar acción</option>
             <option value="hdmi">Conectar a HDMI</option>
@@ -38,7 +42,7 @@
 
         <!-- Audífonos -->
         <div id="audifonos" onclick="mostrarInfo('Audifonos')">
-          <img src="Audifonos.png" alt="Audifonos" style="width: 100px">
+          <img src="Audifonos.png" alt="Audifonos" style="width: 100px" title="Este es un dispositivo de entrada y salida.">
           <select id="select-audifonos" onchange="manejarConexion('audifonos', this.value)">
             <option value="">Seleccionar acción</option>
             <option value="audio">Conectar a Audio</option>
@@ -65,8 +69,10 @@
             <button id="estado-audio" class="estado-desconectado">Desconectado</button>
           </div>
         </div>
+        <div class="compu">
         <img src="Computadora.png" alt="Computadora" style="width: 300px">
         <button id="btn-inspeccionar" onclick="mostrarInspeccion();">Inspeccionar</button>
+      </div>
       </div>
     </div>
   </section>

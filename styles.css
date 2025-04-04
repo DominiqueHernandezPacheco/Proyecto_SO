@@ -1,27 +1,102 @@
+body {
+  
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    padding: 10px;
+    padding-top:20px;
+    padding-bottom:20px;
+    margin: 0;
+    box-sizing: border;
+    background-color:rgba(238, 232, 182, 0.545)
+}
+
+* {
+  box-sizing: border-box; /* Asegura que los paddings y bordes no causen desbordamiento */
+}
+
+
+
 /* Contenedor que agrupa dispositivos y computadora */
 .contenedor-principal {
-    display: flex; /* Alinea los dispositivos y la computadora en una fila */
-    justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
-    gap: 800px; /* Espacio entre los dispositivos y la computadora */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 100px;
+  padding: 20px;
+  background-color: rgb(243, 243, 243);
+  max-width: 100vw; /* Asegura que el contenedor no exceda el ancho de la ventana */
+  border-radius:10px;
 }
 
 /* Contenedor de dispositivos */
 .DispositivosES {
-    display: flex; /* Alinea los dispositivos */
+  display: flex;
+    position: relative;
     flex-direction: column;
-    justify-content: center; 
-    border: 2.5px solid #1b1b21; 
+    justify-content: flex-start;
+    align-items: center;
+    border: 2.5px solid #5b5d5d;
     border-radius: 10px;
-    padding: 10px; /* Espacio interno dentro del borde */
+    padding: 20px;
     background-color: #ffffff;
-    gap: 10px; /* Espacio entre los dispositivos */
+    gap: 15px;
+    width: 250px; /* Asegura un ancho fijo */
+    height: auto;
+    background-color: rgba(198, 245, 245, 0.215);
+    right: 20%;
+}
+
+
+
+.DispositivosES img {
+  width: 100px;
+  height: auto;
+  margin: 0; /* Elimina márgenes innecesarios */
+}
+
+.computadora img {
+  display: block; /* Evita que los elementos se desborden */
+  width: 100%; /* Asegúrate de que la imagen ocupe el 100% del contenedor */
+  max-width: 100%; /* Evita que la imagen se haga más grande que su contenedor */
+}
+
+#modal-inspeccion {
+  width: 100%; /* Evita que la ventana modal se haga más grande de lo necesario */
+  max-width: 350px; /* Asegúrate de que el modal no se extienda demasiado */
+}
+
+.DispositivosES img {
+  width: 100px; /* Tamaño de las imágenes */
+  height: auto;
+  justify-content: center;
+
 }
 
 #dispo{
-    border: 3px, solid #1b1b21; /* Borde de los dispositivos */
-    border-radius: 10px; /* Bordes redondeados */
+  border: 3px solid #1b1b21; /* Borde de los dispositivos */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Añadimos padding para separar la etiqueta de los bordes */
+  margin-bottom: 20px; /* Espacio debajo del contenedor */
+  background-color: rgba(255, 248, 220, 0.675);
 }
 
+.DispositivosES h2 {
+  margin: 0; /* Elimina el margen por defecto */
+  padding-bottom: 5px; /* Espacio debajo de la etiqueta */
+  font-size: 30px; /* Tamaño de fuente adecuado */
+  font-weight: bold; /* Aumenta el peso de la fuente */
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  left:5%;
+  bottom:5%;
+}
+
+.DispositivosES button {
+  margin-top: 5px;
+    padding: 3px 8px;  /* Reduce el tamaño de los botones */
+    font-size: 12px;    /* Reduce el tamaño del texto */
+    cursor: pointer;
+    width: auto;   
+}
 
 .computadora img {
     display: flex;
@@ -31,25 +106,21 @@
     height: auto; 
 }
 
+.compu img{
+  position: relative;
+  right:20%;
+}
+
 .info{
     display: flex; 
     flex-direction:row; /* Alinea los elementos en columna */
     padding: 10px;
-    gap: 800px; /* Espacio entre los elementos */
+    gap: 400px; /* Espacio entre los elementos */
     border: 3px solid #1b1b21; /* Borde de los elementos */
+    background-color:rgba(255, 228, 225, 0.485);
+    border-radius: 10px;
 }
 
-#info-procesos{
-    border: 2.5px solid #1b1b21;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-#info-recursos{
-    border: 2.5px solid #1b1b21;
-    border-radius: 10px;
-    padding: 10px;
-}
 
 .puertos{
     display: flex; /* Alinea los elementos en fila */
@@ -60,6 +131,18 @@
     gap: 10px; /* Espacio entre los elementos */
     
 }
+
+.puertos img{
+  display: flex; /* Alinea los elementos en fila */
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2px;
+  gap: 10px; /* Espacio entre los elementos */
+  position: relative;
+  left:20%
+  
+} 
 
 button{
     margin-top: 5px;
@@ -118,13 +201,28 @@ select {
     border-radius: 5px;
   }
   
-  /* Ajustes para el botón de inspeccionar */
   #btn-inspeccionar {
-    margin-top: 10px;
-    padding: 5px 10px;
-    font-size: 14px;
-    cursor: pointer;
-  }
+  padding: 6px 12px; /* Espaciado interno reducido */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    font-weight: bold; /* Texto en negrita */
+    background-color: #007BFF; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Elimina el borde predeterminado */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor cuando pasa sobre el botón */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+}
+
+#btn-inspeccionar:hover {
+    background-color: #0056b3; /* Color de fondo cuando el ratón pasa sobre el botón */
+    transform: scale(1.1); /* Hace que el botón crezca ligeramente */
+}
+
+#btn-inspeccionar:active {
+    background-color: #004085; /* Color de fondo cuando el botón es presionado */
+    transform: scale(1); /* Vuelve al tamaño original al presionar */
+}
+
   
 
 /* Representación gráfica global de la cola en forma de fila */
@@ -197,3 +295,217 @@ select {
     margin-bottom: 5px;
   }
   
+/* Estilo para los botones dentro de los dispositivos */
+button {
+  padding: 6px 12px; /* Espaciado interno reducido para los botones */
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+  font-weight: bold; /* Texto en negrita */
+  background-color: #007BFF; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  border: none; /* Elimina el borde predeterminado */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+  margin-top: 10px; /* Espacio superior entre los botones */
+}
+
+/* Estilo cuando el usuario pasa el mouse sobre los botones */
+button:hover {
+  background-color: #0056b3; /* Color de fondo más oscuro */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+}
+
+/* Estilo cuando el botón es presionado */
+button:active {
+  background-color: #004085; /* Color de fondo al presionar */
+  transform: scale(1); /* Vuelve al tamaño original */
+}
+
+/* Estilo para la lista de dispositivos (opciones en los selects) */
+select {
+  margin-top: 10px; /* Espacio superior */
+  padding: 6px 12px; /* Ajuste de espaciado interno para los selects */
+  font-size: 14px; /* Tamaño de la fuente de los selects */
+  border-radius: 5px; /* Bordes redondeados */
+  border: 1px solid #ccc; /* Borde sutil */
+  background-color: #ffffff; /* Fondo blanco para los selects */
+  color: #333; /* Color del texto */
+  cursor: pointer; /* Cambia el cursor cuando se pasa sobre el select */
+  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+}
+
+/* Estilo cuando el select tiene el foco (al hacer clic en él) */
+select:focus {
+  background-color: #e7f3ff; /* Fondo claro cuando está enfocado */
+  border-color: #007BFF; /* Borde azul cuando está enfocado */
+}
+
+/* Estilo para los dispositivos en la columna */
+.DispositivosES div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Espacio entre cada elemento dentro de los dispositivos */
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(198, 245, 245, 0.215); /* Fondo suave para los dispositivos */
+  border: 2px solid #5b5d5d; /* Borde alrededor de los dispositivos */
+  width: 220px; /* Ancho fijo de los dispositivos */
+  height: auto; /* Ajusta la altura según el contenido */
+}
+
+.DispositivosES img {
+  width: 100px; /* Tamaño de las imágenes */
+  height: auto; /* Mantener la relación de aspecto de la imagen */
+}
+#info-procesos{
+  border: 2.5px solid #1b1b21;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#info-recursos{
+  border: 2.5px solid #1b1b21;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Estilo para el contenedor de los procesos */
+#info-procesos {
+  width: 40%; /* Establece el ancho al 40% del contenedor principal */
+  margin: 10px 0; /* Puedes ajustar los márgenes según sea necesario */
+  padding: 15px;
+  background-color: #f5f5f5; /* Puedes ajustar el color de fondo si lo deseas */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombras sutiles */
+  font-family: Arial, sans-serif; /* Tipografía limpia */
+}
+
+/* Estilo para el contenedor de recursos */
+#info-recursos {
+  width: 40%; /* Ancho del 40% del contenedor principal */
+  border: 2.5px solid #5b5d5d; /* Borde alrededor de cada sección */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px; /* Espacio interno */
+  background-color: rgba(198, 245, 245, 0.215); /* Fondo suave */
+  margin-bottom: 20px; /* Espacio debajo de cada sección */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  font-family: Arial, sans-serif; /* Tipografía limpia */
+}
+
+/* Títulos dentro de las secciones (registro de procesos y recursos) */
+#info-procesos h3,
+#info-recursos h3 {
+  font-size: 24px; /* Tamaño de fuente para el título */
+  font-weight: bold; /* Texto en negrita */
+  margin-bottom: 15px; /* Espacio debajo del título */
+  font-family: 'Courier New', Courier, monospace;
+  color: #333; /* Color más suave para los títulos */
+  text-align: center; /* Centra el texto del título */
+}
+
+/* Estilo para el contenido dentro de las secciones (listas o registros) */
+#registro-procesos,
+#metricas-recursos {
+  font-size: 14px; /* Tamaño de la fuente */
+  color: #333; /* Color del texto */
+  margin-top: 10px; /* Espacio superior */
+  list-style: none; /* Elimina los puntos de lista */
+  padding: 10px 0; /* Espaciado interno de la lista */
+  line-height: 1.6; /* Mejora la legibilidad */
+}
+
+/* Estilo para cada elemento dentro de los registros (de procesos o recursos) */
+#registro-procesos li,
+#metricas-recursos .metric {
+  padding: 5px 0; /* Espaciado entre cada elemento */
+  border-bottom: 1px solid #ddd; /* Línea separadora */
+  background-color: rgba(245, 245, 245, 0.6); /* Fondo suave */
+  border-radius: 5px; /* Bordes redondeados para cada ítem */
+}
+
+#registro-procesos li:hover,
+#metricas-recursos .metric:hover {
+  background-color: rgba(255, 245, 245, 0.8); /* Efecto hover */
+  cursor: pointer; /* Muestra el cursor en forma de mano */
+}
+
+#metricas-recursos .metric {
+  padding: 8px; /* Más espaciado en los elementos de métricas */
+  margin-bottom: 10px; /* Espacio inferior */
+  background-color: #f9f9f9; /* Fondo blanco para cada métrica */
+  border: 1px solid #ddd; /* Borde sutil */
+  border-radius: 8px; /* Bordes más redondeados */
+}
+
+
+
+#modal-inspeccion {
+  display: none; /* Inicialmente oculta */
+  position: fixed;
+  top: 50%; /* Centrado vertical */
+  left: 50%; /* Centrado horizontal */
+  transform: translate(-50%, -50%); /* Centrado perfecto */
+  z-index: 1000; /* Asegura que esté por encima del contenido */
+  width: 70%; /* Ajustar el ancho para hacerlo más pequeño */
+  max-width: 500px; /* Límite de ancho máximo */
+  height: auto; /* Ajusta la altura según el contenido */
+  max-height: 400px; /* Límite de altura */
+  padding: 20px;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #ddd; /* Borde suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  font-family: Arial, sans-serif; /* Tipografía sencilla */
+  overflow: hidden; /* Evitar scroll visible por defecto */
+}
+
+#modal-inspeccion .modal-content {
+  overflow-y: auto; /* Permite scroll solo cuando el contenido excede la altura */
+  max-height: 80%; /* Limita la altura del contenido */
+}
+
+/* Fondo oscuro detrás de la ventana */
+#overlay {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  z-index: 999; /* Asegura que esté detrás del modal */
+}
+
+/* Estilos para los botones dentro de la ventana */
+#modal-inspeccion button {
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #4CAF50; /* Fondo verde */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#modal-inspeccion button:hover {
+  background-color: #45a049; /* Color verde más oscuro al pasar el ratón */
+}
+
+/* Ajustes para el texto dentro de la ventana */
+#modal-inspeccion h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+#modal-inspeccion p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  overflow: hidden; /* Asegura que el texto no se desborde inicialmente */
+}

@@ -237,15 +237,15 @@ function showNotification(mensaje, duracion = 3000) {
 
     // Verificar si el dispositivo es de entrada (teclado) y la operación es "read"
     if (dispositivoActual === 'teclado' && tipoOperacion === 'read') {
-      alert(`Error: El ${dispositivoActual} es un dispositivo de entrada y no puede realizar operaciones de lectura.`);
+      alert(`Error: El teclado es un dispositivo de entrada y no puede realizar operaciones de lectura.`);
       agregarRegistro(`Intento de lectura fallido en ${dispositivoActual}: dispositivo de entrada.`);
       totalErrores++;
       actualizarRecursos();
       return; // Salir de la función si la operación no es válida
   }
 
-  // Verificar si el dispositivo es de salida (proyector) y la operación es "write"
-  if (dispositivoActual === 'proyector' && tipoOperacion === 'write') {
+  // Verificar si el dispositivo es de salida (audifonos y proyector) y la operación es "write"
+  if ((dispositivoActual === 'audifonos' || dispositivoActual === 'proyector') && tipoOperacion === 'write') {
     alert(`Error: El ${dispositivoActual} es un dispositivo de salida y no puede realizar operaciones de escritura.`);
     agregarRegistro(`Intento de escritura fallido en ${dispositivoActual}: dispositivo de salida.`);
     totalErrores++;
@@ -255,13 +255,11 @@ function showNotification(mensaje, duracion = 3000) {
 
 
     let dato = null;
-    if (tipoOperacion === 'write' && dispositivoActual === 'teclado') {
+    if (tipoOperacion === 'write') {
       dato = prompt('Ingrese el dato a escribir:');
       if (dato === null) {
         return; // Operación cancelada
-      } 
-    }else{
-      dato = "Audio";
+      }
     }
 
 
@@ -455,3 +453,6 @@ setInterval(() => {
       processNext();
     }
   }, 11000);
+
+
+  
